@@ -4,9 +4,9 @@ This repository provides a setup for running a Spark standalone cluster using Do
 
 ## Prerequisites
 
-https://medium.com/@elvinrego/building-a-scalable-config-driven-etl-framework-in-apache-spark-db98be41116b
-
 ## Setup Instructions
+
+https://medium.com/@elvinrego/building-a-scalable-config-driven-etl-framework-in-apache-spark-db98be41116b
 
 ## Spark Connections
 
