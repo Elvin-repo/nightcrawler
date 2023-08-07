@@ -5,7 +5,7 @@ set -e
 # Replace these variables with your actual settings
 PROJECT_DIR="./"
 PYSPARK_SCRIPT="scripts/run_pyspark_app.sh"  # The path to the run_pyspark_app.sh script
-CONFIG_FILE="/opt/pipelines/demo-clickhouse-csv/clickhouse_csv.yaml"  # The path to the clickhouse_csv.yaml file
+CONFIG_FILE="/opt/pipelines/demo-clickhouse-csv/clickhouse_to_csv.yaml"  # The path to the clickhouse_csv.yaml file
 
 # Step 2: Run the PySpark script
 echo "Step 2: Running the PySpark script with config file: $CONFIG_FILE..."
