@@ -1,0 +1,8 @@
+read:
+  type: clickhouse
+  clickhouse_url: "jdbc:clickhouse://clickhouse-container:8123/default"
+  clickhouse_table_name: "my_table"
+
+writes:
+  - type: csv
+    csv_file_path: "/opt/pipelines/demo-clickhouse-csv/output/my_table/"
