@@ -1,4 +1,4 @@
-# Spark Standalone Cluster with Docker and Docker Compose
+# Scalable Config-Driven ETL Framework in Apache Spark
 
 This repository provides a setup for running a Spark standalone cluster using Docker and Docker Compose. It enables you to develop and deploy PySpark applications in a containerized environment. Follow the steps below to get started.
 
