@@ -1,0 +1,17 @@
+# Step 1: Use the bitnami/spark:3.1.3 image as the base image
+FROM bitnami/spark:3.1.3
+
+# Step 2: Switch to the root user to perform installation tasks
+USER root
+
+# Step 3: Install the python3-pip package (package manager for Python)
+RUN install_packages python3-pip
+
+# Step 4: Copy the requirements.txt file from the local directory to the image
+COPY requirements.txt .
+
+# Step 5: Install the project dependencies from the requirements.txt file using pip
+RUN pip install -r requirements.txt
+
+# Step 6: Switch back to the user with the ID 1001 (non-root user) for running the Spark application
+USER 1001

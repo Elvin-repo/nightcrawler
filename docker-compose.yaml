@@ -1,0 +1,71 @@
+version: "3.3"
+services:
+  spark:
+    image: spark-image
+    container_name: spark-master
+    volumes:
+      - ./src:/opt/src
+      - ./archive:/opt/archive
+      - ./scripts/:/opt/scripts
+      - ./pipelines/:/opt/pipelines
+      - ./jars/:/opt/jars
+    environment:
+      - SPARK_MODE=master
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+    ports:
+      - '8080:8080'
+  spark-worker:
+    image: spark-image
+    volumes:
+      - ./src:/opt/src
+      - ./archive:/opt/archive
+      - ./scripts/:/opt/scripts
+      - ./pipelines/:/opt/pipelines
+      - ./jars/:/opt/jars
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark:7077
+      - SPARK_WORKER_MEMORY=1G
+      - SPARK_WORKER_CORES=1
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+  clickhouse:
+    image: yandex/clickhouse-server
+    container_name: clickhouse-container
+    ports:
+      - "8123:8123"  # HTTP port
+      - "9000:9000"  # Native port
+      - "9009:9009"  # TCP port for client connections
+      - "8124:9004"  # TCP port for data transfers
+    volumes:
+      - clickhouse_data:/var/lib/clickhouse
+    restart: always
+  python_script:
+    image: python-image
+    container_name: python_helper_container
+    command: python /opt/scripts/create_and_add_clickhouse_data.py
+    volumes:
+      - ./scripts/:/opt/scripts
+      - ./log/:/opt/log
+    depends_on:
+      - clickhouse
+  postgres:
+    image: postgres
+    container_name: postgres-container
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=my_database  # Replace 'my_database' with the desired database name
+      - POSTGRES_USER=my_user    # Replace 'my_user' with the desired username
+      - POSTGRES_PASSWORD=my_password  # Replace 'my_password' with the desired password
+
+volumes:
+  clickhouse_data:
+  postgres_data:

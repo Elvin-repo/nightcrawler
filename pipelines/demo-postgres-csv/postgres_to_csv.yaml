@@ -1,0 +1,11 @@
+read:
+  type: postgres
+  postgres_url: jdbc:postgresql://postgres-container:5432/my_database  # Replace with your PostgreSQL URL
+  postgres_table_name: my_table  # Replace with the name of the table in PostgreSQL
+  properties:  # Add additional connection properties if required
+    user: my_user
+    password: my_password
+
+writes:
+  - type: csv
+    csv_file_path: /opt/pipelines/demo-postgres-csv/output/  # Replace with the desired output CSV file path

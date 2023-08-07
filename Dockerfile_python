@@ -1,0 +1,11 @@
+# Use the official Python slim image as the base image
+FROM python:3-slim
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Install the zip package
+RUN apt-get update && apt-get install -y zip
+
+# Install the required packages
+RUN pip install requests
